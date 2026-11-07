@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141b18" media="(prefers-color-scheme: dark)">
+  <title>Expiry Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Your pantry, at a glance</p>
+        <h1>Expiry Tracker</h1>
+      </div>
+      <button class="button button-primary" id="add-product-button" type="button">Add product</button>
+    </header>
+
+    <p class="notice" role="note">Your products and images stay in this browser. OCR and reliable scheduled reminders aren't available in this web version.</p>
+    <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+
+    <nav class="tabs" aria-label="Product views">
+      <button class="tab is-selected" type="button" data-view="active" aria-current="page">Active</button>
+      <button class="tab" type="button" data-view="toBuyAgain">To Buy Again</button>
+    </nav>
+
+    <section class="view-panel" id="active-view" aria-labelledby="active-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Your products</p>
+          <h2 id="active-heading">Active</h2>
+        </div>
+        <span class="count" id="active-count"></span>
+      </div>
+      <div id="active-content"></div>
+    </section>
+
+    <section class="view-panel" id="toBuyAgain-view" aria-labelledby="repurchase-heading" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Your shopping list</p>
+          <h2 id="repurchase-heading">To Buy Again</h2>
+        </div>
+        <span class="count" id="repurchase-count"></span>
+      </div>
+      <div id="repurchase-content"></div>
+    </section>
+
+    <dialog id="product-dialog" aria-labelledby="form-heading">
+      <form class="product-form" id="product-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">Keep track of a product</p>
+            <h2 id="form-heading">Add product</h2>
+          </div>
+          <button class="icon-button" id="close-dialog-button" type="button" aria-label="Close form">&times;</button>
+        </div>
+        <label for="product-name">Product name</label>
+        <input id="product-name" name="name" type="text" maxlength="160" autocomplete="off" required>
+
+        <label for="date-kind">Date type</label>
+        <select id="date-kind" name="dateKind" required>
+          <option value="Use by">Use by</option>
+          <option value="Best before">Best before</option>
+        </select>
+
+        <label for="expiry-date">Expiry date <span class="field-hint">List dates display as DD MMM YYYY (for example, 07 Nov 2026); saved as MM/DD/YYYY. The date picker follows your browser format.</span></label>
+        <input id="expiry-date" name="expiryDate" type="date" required>
+
+        <div id="image-fields">
+          <label for="product-image">Product image <span class="field-hint">Optional - stays on this device</span></label>
+          <input id="product-image" name="image" type="file" accept="image/*" capture="environment">
+          <div class="image-preview" id="image-preview" hidden>
+            <img id="preview-image" alt="Selected product image preview">
+            <button class="text-button" id="remove-image-button" type="button">Remove image</button>
+          </div>
+        </div>
+        <p class="form-note">OCR isn't available here. Add the product name and date manually.</p>
+        <p class="feedback is-error" id="form-feedback" role="alert" aria-atomic="true"></p>
+        <div class="form-actions">
+          <button class="button button-secondary" id="cancel-dialog-button" type="button">Cancel</button>
+          <button class="button button-primary" id="save-product-button" type="submit">Save product</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+</body>
+</html>
